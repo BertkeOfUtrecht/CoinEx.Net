@@ -405,7 +405,7 @@ namespace CoinEx.Net.Clients.SpotApi
             throw new ArgumentException("Unsupported timespan for CoinEx Klines, check supported intervals using CoinEx.Net.Objects.KlineInterval");
         }
         #endregion
-
+        //Common interface de kaldim
 
         /// <inheritdoc />
         protected override Task<ServerError?> TryParseErrorAsync(JToken data)

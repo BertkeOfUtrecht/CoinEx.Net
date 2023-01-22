@@ -6,7 +6,6 @@ using CryptoExchange.Net.Objects;
 using CoinEx.Net.Enums;
 using CoinEx.Net.Objects.Models;
 using CoinEx.Net.Objects.Models.Futures;
-using CoinEx.Net.Objects.Models.Spot;
 
 namespace CoinEx.Net.Interfaces.Clients.FuturesApi
 {
@@ -16,13 +15,12 @@ namespace CoinEx.Net.Interfaces.Clients.FuturesApi
     public interface ICoinExClientFuturesApiAccount
     {
         /// <summary>
-        /// Gets account overview
-        /// <para><a href="https://docs.CoinEx.com/futures/#get-account-overview" /></para>
+        /// Query assets in futures account
+        /// <para><a href="https://api.coinex.com/perpetual/v1/asset/query" /></para>
         /// </summary>
-        /// <param name="asset">Get the accounts for a specific asset</param>
         /// <param name="ct">Cancellation token</param>
-        /// <returns>List of accounts</returns>
-        Task<WebCallResult<CoinExAccountOverview>> GetAccountOverviewAsync(string? asset = null, CancellationToken ct = default);
+        /// <returns>List of assets in futures account</returns>
+        Task<WebCallResult<Dictionary<string, CoinExFuturesAssetItem>>> AssetQueryAsync(CancellationToken ct = default);
 
         /*
         /// <summary>

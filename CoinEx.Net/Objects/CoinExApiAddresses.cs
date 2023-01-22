@@ -27,7 +27,7 @@
         {
             RestClientAddress = "https://api.coinex.com/v1",
             SocketClientAddress = "wss://socket.coinex.com/",
-            FuturesAddress = "http://api.coinex.com/perpetual/v1"
+            FuturesAddress = "https://api.coinex.com/perpetual/v1"
         };
     }
 }
