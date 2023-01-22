@@ -1,4 +1,7 @@
 ﻿using CoinEx.Net.Clients;
+using CoinEx.Net.Objects;
+using CoinEx.Net.Objects.Models;
+using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Logging;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +16,22 @@ namespace CoinEx.Net.Examples
     {
         static async Task Main(string[] args)
         {
+
+            var coinExClient = new CoinExClient(new CoinExClientOptions()
+            {
+                ApiCredentials = new ApiCredentials("97FC860635D64F3987F9B352D46805B4", "6E2997152613510F2F20EAFDAE55F4D3376234DFA6B7A5C8"),
+                LogLevel = LogLevel.Trace
+            });
+
+            var accountData = await coinExClient.SpotApi.Account.GetBalancesAsync();
+            CoinExBalance balance;
+            foreach (var item in accountData.Data)
+            {
+                balance = item.Value;
+                Console.WriteLine(item.Key + " " + balance.Asset + " " + balance.Available);
+            }
+
+            /*
             string[] marketList = new string[0];
             using(var client = new CoinExClient())
             {
@@ -47,6 +66,8 @@ namespace CoinEx.Net.Examples
             {
                 Console.WriteLine($"Last price of {market}: {data.Data.Close}");
             });
+            */
+
             Console.ReadLine();
         }
     }

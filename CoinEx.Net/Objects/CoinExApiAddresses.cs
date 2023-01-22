@@ -15,12 +15,19 @@
         public string SocketClientAddress { get; set; } = "";
 
         /// <summary>
+        /// The address used by the KucoinClient for the futures API
+        /// </summary>
+        public string FuturesAddress { get; set; } = string.Empty;
+
+
+        /// <summary>
         /// The default addresses to connect to the CoinEx.com API
         /// </summary>
         public static CoinExApiAddresses Default = new CoinExApiAddresses
         {
             RestClientAddress = "https://api.coinex.com/v1",
-            SocketClientAddress = "wss://socket.coinex.com/"
+            SocketClientAddress = "wss://socket.coinex.com/",
+            FuturesAddress = "http://api.coinex.com/perpetual/v1"
         };
     }
 }

@@ -1886,7 +1886,42 @@
             The transaction id of the withdrawal
             </summary>
         </member>
-        <member name="T:CoinEx.Net.Objects.Models.Socket.CoinExSocketOrder">
+		<member name="T:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem">
+			<summary>
+				Futures Asset Info
+			</summary>
+		</member>
+		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Available_balance">
+			<summary>
+				Available balance of coin in futures
+			</summary>
+		</member>
+		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Frozen_balance">
+			<summary>
+				Frozen balance of coin in futures
+			</summary>
+		</member>
+		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Transfer_balance">
+			<summary>
+				Transfer balance of coin in futures
+			</summary>
+		</member>
+		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Total_balance">
+			<summary>
+				Total balance of coin in futures
+			</summary>
+		</member>
+		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Margin_balance">
+			<summary>
+				Margin balance of coin in futures
+			</summary>
+		</member>
+		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Unrealized_profit">
+			<summary>
+				Unrealized profit balance of coin in futures
+			</summary>
+		</member>
+		<member name="T:CoinEx.Net.Objects.Models.Socket.CoinExSocketOrder">
             <summary>
             Order info
             </summary>

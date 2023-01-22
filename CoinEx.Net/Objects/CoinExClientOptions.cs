@@ -38,6 +38,16 @@ namespace CoinEx.Net.Objects
             set => _spotApiOptions = new RestApiClientOptions(_spotApiOptions, value);
         }
 
+        private RestApiClientOptions _futuresApiOptions = new RestApiClientOptions(CoinExApiAddresses.Default.FuturesAddress);
+        /// <summary>
+        /// Futures API options
+        /// </summary>
+        public RestApiClientOptions FuturesApiOptions
+        {
+            get => _futuresApiOptions;
+            set => _futuresApiOptions = new RestApiClientOptions(_futuresApiOptions, value);
+        }
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -56,6 +66,7 @@ namespace CoinEx.Net.Objects
 
             NonceProvider = baseOn.NonceProvider;
             _spotApiOptions = new RestApiClientOptions(baseOn.SpotApiOptions, null);
+            _futuresApiOptions = new RestApiClientOptions(baseOn.FuturesApiOptions, null);
         }
     }
 
