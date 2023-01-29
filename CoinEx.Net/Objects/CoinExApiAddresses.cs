@@ -17,7 +17,7 @@
         /// <summary>
         /// The address used by the KucoinClient for the futures API
         /// </summary>
-        public string FuturesAddress { get; set; } = string.Empty;
+        public string FuturesAddress { get; set; } = "";
 
 
         /// <summary>

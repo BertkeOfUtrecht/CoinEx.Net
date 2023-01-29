@@ -13,6 +13,8 @@ using CoinEx.Net.Interfaces.Clients;
 using CoinEx.Net.Interfaces.Clients.SpotApi;
 using CoinEx.Net.Clients.SpotApi;
 using CryptoExchange.Net.CommonObjects;
+using CoinEx.Net.Interfaces.Clients.FuturesApi;
+using CoinEx.Net.Clients.FuturesApi;
 
 namespace CoinEx.Net.Clients
 {
@@ -22,6 +24,10 @@ namespace CoinEx.Net.Clients
         #region Api clients
         /// <inheritdoc />
         public ICoinExClientSpotApi SpotApi { get; }
+
+        /// <inheritdoc />
+        public ICoinExClientFuturesApi FuturesApi { get; }
+
         #endregion
 
         #region ctor
@@ -39,6 +45,7 @@ namespace CoinEx.Net.Clients
         public CoinExClient(CoinExClientOptions options) : base("CoinEx", options)
         {
             SpotApi = AddApiClient(new CoinExClientSpotApi(log, options));
+            FuturesApi = AddApiClient(new CoinExClientFuturesApi(log, options));
         }
         #endregion
 

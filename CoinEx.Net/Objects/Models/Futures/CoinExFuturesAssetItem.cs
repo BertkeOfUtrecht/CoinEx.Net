@@ -25,7 +25,7 @@ namespace CoinEx.Net.Objects.Models.Futures
         /// <summary>
         /// Transfer amount
         /// </summary>
-        [JsonProperty("tranfer")]
+        [JsonProperty("transfer")]
         public string Transfer_balance { get; set; } = string.Empty;
 
         /// <summary>

@@ -14,6 +14,7 @@ using CoinEx.Net.Objects.Models;
 using CoinEx.Net.Objects.Models.Futures;
 using CryptoExchange.Net.Converters;
 using CoinEx.Net.Interfaces.Clients.FuturesApi;
+using CryptoExchange.Net.CommonObjects;
 
 namespace CoinEx.Net.Clients.FuturesApi
 {
@@ -22,22 +23,35 @@ namespace CoinEx.Net.Clients.FuturesApi
     {
         private readonly CoinExClientFuturesApi _baseClient;
 
+        private const string AssetQueryEndpoint = "asset/query";
+
+
         internal CoinExClientFuturesApiAccount(CoinExClientFuturesApi baseClient)
         {
             _baseClient = baseClient;
         }
 
-        #region Account
+        
         /// <inheritdoc />
-        public async Task<WebCallResult<CoinExAccountOverview>> GetAccountOverviewAsync(string? asset = null, CancellationToken ct = default)
+        public async Task<WebCallResult<Dictionary<string, CoinExFuturesAssetItem>>> AssetQueryAsync(CancellationToken ct = default)
         {
-            var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("currency", asset);
-            return await _baseClient.Execute<CoinExAccountOverview>(_baseClient.GetUri("account-overview"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await _baseClient.Execute<Dictionary<string, CoinExFuturesAssetItem>>(_baseClient.GetUrl(AssetQueryEndpoint), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+            /*if (result)
+            {
+                foreach (var b in result.Data)
+                {
+                    Console.WriteLine("Coinex future balances {0}  {1} {2} {3} {4}", b.Value.Available_balance, b.Value.Total_balance,b.Value.Margin_balance, b.Value.Unrealized_profit, b.Value.Frozen_balance);
+                }
+                    
+            }*/
+
+            return result;
         }
 
+        #region Commented
+        /*
         /// <inheritdoc />
-        /*public async Task<WebCallResult<CoinExPaginatedSlider<CoinExAccountTransaction>>> GetTransactionHistoryAsync(string? asset = null, TransactionType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinExPaginatedSlider<CoinExAccountTransaction>>> GetTransactionHistoryAsync(string? asset = null, TransactionType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", asset);
@@ -48,12 +62,12 @@ namespace CoinEx.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("maxCount", pageSize?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("forward", forward);
             return await _baseClient.Execute<CoinExPaginatedSlider<CoinExAccountTransaction>>(_baseClient.GetUri("transaction-history"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }*/
+        }
         #endregion
 
         #region Deposit
         /// <inheritdoc />
-        /*public async Task<WebCallResult<CoinExDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinExDepositAddress>> GetDepositAddressAsync(string asset, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("currency", asset);
@@ -71,13 +85,13 @@ namespace CoinEx.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("pageSize", pageSize);
             parameters.AddOptionalParameter("status", status == null ? null : JsonConvert.SerializeObject(status, new DepositStatusConverter(false)));
             return await _baseClient.Execute<CoinExPaginated<CoinExDeposit>>(_baseClient.GetUri("deposit-list"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }*/
+        }
         #endregion
 
         #region Withdrawal
 
         /// <inheritdoc />
-        /*public async Task<WebCallResult<CoinExFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string asset, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinExFuturesWithdrawalQuota>> GetWithdrawalLimitAsync(string asset, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("currency", asset);
@@ -115,12 +129,12 @@ namespace CoinEx.Net.Clients.FuturesApi
         public async Task<WebCallResult> CancelWithdrawalAsync(string withdrawalId, CancellationToken ct = default)
         {
             return await _baseClient.Execute(_baseClient.GetUri($"withdrawals/{withdrawalId}"), HttpMethod.Delete, ct, signed: true).ConfigureAwait(false);
-        }*/
+        }
         #endregion
 
         #region Transfer
         /// <inheritdoc />
-        /*public async Task<WebCallResult<CoinExTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, string? clientId = null, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinExTransferResult>> TransferToMainAccountAsync(string asset, decimal quantity, string? clientId = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("currency", asset);
@@ -147,13 +161,13 @@ namespace CoinEx.Net.Clients.FuturesApi
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("applyId", applyId);
             return await _baseClient.Execute(_baseClient.GetUri("cancel/transfer-out", 1), HttpMethod.Delete, ct, parameters, true).ConfigureAwait(false);
-        }*/
+        }
         #endregion
 
         #region Positions
 
         /// <inheritdoc />
-        /*public async Task<WebCallResult<CoinExPosition>> GetPositionAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinExPosition>> GetPositionAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("symbol", symbol);
@@ -183,14 +197,14 @@ namespace CoinEx.Net.Clients.FuturesApi
             parameters.AddParameter("bizNo", clientId ?? Convert.ToBase64String(Guid.NewGuid().ToByteArray()));
             parameters.AddParameter("margin", quantity.ToString(CultureInfo.InvariantCulture));
             return await _baseClient.Execute(_baseClient.GetUri("position/margin/deposit-margin"), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-        }*/
+        }
 
         #endregion
 
         #region Funding fees
 
         /// <inheritdoc />
-        /*public async Task<WebCallResult<CoinExPaginatedSlider<CoinExFundingItem>>> GetFundingHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinExPaginatedSlider<CoinExFundingItem>>> GetFundingHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("symbol", symbol);
@@ -200,19 +214,21 @@ namespace CoinEx.Net.Clients.FuturesApi
             parameters.AddOptionalParameter("maxCount", pageSize?.ToString(CultureInfo.InvariantCulture));
             parameters.AddOptionalParameter("forward", forward);
             return await _baseClient.Execute<CoinExPaginatedSlider<CoinExFundingItem>>(_baseClient.GetUri("funding-history"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }*/
+        }
 
         #endregion
 
         #region Open order value
         /// <inheritdoc />
-        /*public async Task<WebCallResult<CoinExOrderValuation>> GetOpenOrderValueAsync(string symbol, CancellationToken ct = default)
+        public async Task<WebCallResult<CoinExOrderValuation>> GetOpenOrderValueAsync(string symbol, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddParameter("symbol", symbol);
             return await _baseClient.Execute<CoinExOrderValuation>(_baseClient.GetUri("openOrderStatistics"), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-        }*/
-
+        }
+        
+        #endregion
+        */
         #endregion
 
         #region Websocket token

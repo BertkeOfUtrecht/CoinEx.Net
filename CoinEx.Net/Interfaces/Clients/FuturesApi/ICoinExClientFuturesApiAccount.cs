@@ -22,6 +22,8 @@ namespace CoinEx.Net.Interfaces.Clients.FuturesApi
         /// <returns>List of assets in futures account</returns>
         Task<WebCallResult<Dictionary<string, CoinExFuturesAssetItem>>> AssetQueryAsync(CancellationToken ct = default);
 
+
+        #region commented
         /*
         /// <summary>
         /// Get transaction history
@@ -37,7 +39,7 @@ namespace CoinEx.Net.Interfaces.Clients.FuturesApi
         /// <param name="ct">Cancellation token</param>
         /// <returns></returns>
         Task<WebCallResult<CoinExPaginatedSlider<CoinExAccountTransaction>>> GetTransactionHistoryAsync(string? asset = null, TransactionType? type = null, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
-
+        
         /// <summary>
         /// Get the deposit address for an asset
         /// <para><a href="https://docs.CoinEx.com/futures/#get-deposit-address" /></para>
@@ -203,5 +205,7 @@ namespace CoinEx.Net.Interfaces.Clients.FuturesApi
         /// <returns></returns>
         Task<WebCallResult<CoinExPaginatedSlider<CoinExFundingItem>>> GetFundingHistoryAsync(string symbol, DateTime? startTime = null, DateTime? endTime = null, int? offset = null, int? pageSize = null, bool? forward = null, CancellationToken ct = default);
         */
+        #endregion
+
     }
 }

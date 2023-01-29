@@ -10,6 +10,9 @@
         <member name="P:CoinEx.Net.Clients.CoinExClient.SpotApi">
             <inheritdoc />
         </member>
+        <member name="P:CoinEx.Net.Clients.CoinExClient.FuturesApi">
+            <inheritdoc />
+        </member>
         <member name="M:CoinEx.Net.Clients.CoinExClient.#ctor">
             <summary>
             Create a new instance of CoinExClient with default options
@@ -49,6 +52,39 @@
             Set the default options to be used when creating new clients
             </summary>
             <param name="options">Options to use as default</param>
+        </member>
+        <member name="T:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi">
+            <inheritdoc cref="T:CoinEx.Net.Interfaces.Clients.FuturesApi.ICoinExClientFuturesApi" />
+        </member>
+        <member name="P:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.ExchangeName">
+            <inheritdoc />
+        </member>
+        <member name="P:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.Account">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.CreateAuthenticationProvider(CryptoExchange.Net.Authentication.ApiCredentials)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.TryParseErrorAsync(Newtonsoft.Json.Linq.JToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.ParseErrorResponse(Newtonsoft.Json.Linq.JToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.GetTimeOffset">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.GetTimeSyncInfo">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApi.GetServerTimestampAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApiAccount">
+            <inheritdoc />
+        </member>
+        <member name="M:CoinEx.Net.Clients.FuturesApi.CoinExClientFuturesApiAccount.AssetQueryAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
         </member>
         <member name="T:CoinEx.Net.Clients.SpotApi.CoinExClientSpotApi">
             <inheritdoc cref="T:CoinEx.Net.Interfaces.Clients.SpotApi.ICoinExClientSpotApi" />
@@ -553,6 +589,34 @@
             Failed
             </summary>
         </member>
+        <member name="T:CoinEx.Net.Interfaces.Clients.FuturesApi.ICoinExClientFuturesApi">
+            <summary>
+            Client for accessing the CoinEx Futures API. 
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Interfaces.Clients.FuturesApi.ICoinExClientFuturesApi.RequestFactory">
+            <summary>
+            The factory for creating requests. Used for unit testing
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Interfaces.Clients.FuturesApi.ICoinExClientFuturesApi.Account">
+            <summary>
+            Endpoints related to account settings, info or actions
+            </summary>
+        </member>
+        <member name="T:CoinEx.Net.Interfaces.Clients.FuturesApi.ICoinExClientFuturesApiAccount">
+            <summary>
+            CoinEx Futures account endpoints. Account endpoints include balance info, withdraw/deposit info and requesting and account settings
+            </summary>
+        </member>
+        <member name="M:CoinEx.Net.Interfaces.Clients.FuturesApi.ICoinExClientFuturesApiAccount.AssetQueryAsync(System.Threading.CancellationToken)">
+            <summary>
+            Query assets in futures account
+            <para><a href="https://api.coinex.com/perpetual/v1/asset/query" /></para>
+            </summary>
+            <param name="ct">Cancellation token</param>
+            <returns>List of assets in futures account</returns>
+        </member>
         <member name="T:CoinEx.Net.Interfaces.Clients.ICoinExClient">
             <summary>
             Client for accessing the CoinEx API. 
@@ -561,6 +625,11 @@
         <member name="P:CoinEx.Net.Interfaces.Clients.ICoinExClient.SpotApi">
             <summary>
             Spot endpoints
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Interfaces.Clients.ICoinExClient.FuturesApi">
+            <summary>
+            Futures endpoints
             </summary>
         </member>
         <member name="T:CoinEx.Net.Interfaces.Clients.ICoinExSocketClient">
@@ -1065,6 +1134,11 @@
             The address used by the CoinExSocketClient for the socket API
             </summary>
         </member>
+        <member name="P:CoinEx.Net.Objects.CoinExApiAddresses.FuturesAddress">
+            <summary>
+            The address used by the KucoinClient for the futures API
+            </summary>
+        </member>
         <member name="F:CoinEx.Net.Objects.CoinExApiAddresses.Default">
             <summary>
             The default addresses to connect to the CoinEx.com API
@@ -1088,6 +1162,11 @@
         <member name="P:CoinEx.Net.Objects.CoinExClientOptions.SpotApiOptions">
             <summary>
             Spot API options
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Objects.CoinExClientOptions.FuturesApiOptions">
+            <summary>
+            Futures API options
             </summary>
         </member>
         <member name="M:CoinEx.Net.Objects.CoinExClientOptions.#ctor">
@@ -1886,42 +1965,42 @@
             The transaction id of the withdrawal
             </summary>
         </member>
-		<member name="T:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem">
-			<summary>
-				Futures Asset Info
-			</summary>
-		</member>
-		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Available_balance">
-			<summary>
-				Available balance of coin in futures
-			</summary>
-		</member>
-		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Frozen_balance">
-			<summary>
-				Frozen balance of coin in futures
-			</summary>
-		</member>
-		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Transfer_balance">
-			<summary>
-				Transfer balance of coin in futures
-			</summary>
-		</member>
-		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Total_balance">
-			<summary>
-				Total balance of coin in futures
-			</summary>
-		</member>
-		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Margin_balance">
-			<summary>
-				Margin balance of coin in futures
-			</summary>
-		</member>
-		<member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Unrealized_profit">
-			<summary>
-				Unrealized profit balance of coin in futures
-			</summary>
-		</member>
-		<member name="T:CoinEx.Net.Objects.Models.Socket.CoinExSocketOrder">
+        <member name="T:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem">
+            <summary>
+            Futures Asset Item
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Available_balance">
+            <summary>
+            Available amount
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Frozen_balance">
+            <summary>
+            Available amount
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Transfer_balance">
+            <summary>
+            Transfer amount
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Total_balance">
+            <summary>
+            Available amount
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Margin_balance">
+            <summary>
+            Available amount
+            </summary>
+        </member>
+        <member name="P:CoinEx.Net.Objects.Models.Futures.CoinExFuturesAssetItem.Unrealized_profit">
+            <summary>
+            Available amount
+            </summary>
+        </member>
+        <member name="T:CoinEx.Net.Objects.Models.Socket.CoinExSocketOrder">
             <summary>
             Order info
             </summary>

@@ -67,6 +67,7 @@ namespace CoinEx.Net.Objects
             NonceProvider = baseOn.NonceProvider;
             _spotApiOptions = new RestApiClientOptions(baseOn.SpotApiOptions, null);
             _futuresApiOptions = new RestApiClientOptions(baseOn.FuturesApiOptions, null);
+            //_futuresApiOptions.AutoTimestamp = true;
         }
     }
 
